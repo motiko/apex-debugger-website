@@ -1,0 +1,20 @@
+{
+  "name": "Apex Debugger",
+  "short_name": "Apex Debugger",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "rgba(129, 140, 248)",
+  "background_color": "rgba(55, 65, 81)",
+  "display": "standalone"
+}
+
