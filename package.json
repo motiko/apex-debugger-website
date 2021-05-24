@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "postcss styles.css -o compiled.css",
+    "build": "NODE_ENV=production postcss styles.css -o compiled.css",
     "dev": "postcss styles.css --watch -o compiled.css"
   },
   "dependencies": {
