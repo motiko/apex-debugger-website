@@ -1,0 +1,23 @@
+# Build-time tooling only (nothing here ships to the browser), so batch
+# everything into at most one version-update PR a month and one grouped
+# security PR, instead of a PR per package.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 2
+    # Tailwind v2 -> v3/v4 needs a manual migration of the config and markup.
+    ignore:
+      - dependency-name: tailwindcss
+        update-types: ["version-update:semver-major"]
+    groups:
+      security:
+        applies-to: security-updates
+        patterns: ["*"]
+      dev-dependencies:
+        applies-to: version-updates
+        patterns: ["*"]
+    commit-message:
+      prefix: deps
