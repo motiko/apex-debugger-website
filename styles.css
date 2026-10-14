@@ -1,3 +1,263 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+ * Design tokens: mirror Apex Debugger v0.9
+ * (motiko/sfdc-debug-logs react/src/ui/tokens.ts). Light on :root, dark via
+ * prefers-color-scheme. Tailwind color names in tailwind.config.js map to these.
+ */
+:root {
+  color-scheme: light dark;
+
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-hover: #eef1f4;
+  --selected: #dcefed;
+  --fg: #1b1f24;
+  --muted: #57606a;
+  --divider: #d8dee4;
+  --border: #7d8590;
+  --accent: #00756a;
+  --accent-hover: #005f56;
+  --on-accent: #ffffff;
+  --focus: #0969da;
+  --match: #fff0a8;
+
+  --log-bg: #ffffff;
+  --log-debug: #116329;
+  --log-soql: #7a3fd1;
+  --log-method: #0550ae;
+  --log-error: #a40e26;
+  --log-callout: #8a5a00;
+}
+
+/*
+ * Dark values apply when the OS prefers dark (unless the theme toggle forced
+ * light) or when the toggle forced dark. Keep both blocks in sync.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface-hover: #21262d;
+    --selected: #173430;
+    --fg: #e6edf3;
+    --muted: #9da7b3;
+    --divider: #30363d;
+    --border: #7d8590;
+    --accent: #5cc8bd;
+    --accent-hover: #7fd6cd;
+    --on-accent: #08201d;
+    --focus: #58a6ff;
+    --match: #5c4a00;
+
+    --log-bg: #0d1117;
+    --log-debug: #7ee787;
+    --log-soql: #d2a8ff;
+    --log-method: #79c0ff;
+    --log-error: #ff8e86;
+    --log-callout: #e3b341;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface-hover: #21262d;
+  --selected: #173430;
+  --fg: #e6edf3;
+  --muted: #9da7b3;
+  --divider: #30363d;
+  --border: #7d8590;
+  --accent: #5cc8bd;
+  --accent-hover: #7fd6cd;
+  --on-accent: #08201d;
+  --focus: #58a6ff;
+  --match: #5c4a00;
+
+  --log-bg: #0d1117;
+  --log-debug: #7ee787;
+  --log-soql: #d2a8ff;
+  --log-method: #79c0ff;
+  --log-error: #ff8e86;
+  --log-callout: #e3b341;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* Theme toggle shows the icon for the theme it switches to. */
+.theme-icon-sun {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-icon-sun {
+    display: block;
+  }
+  :root:not([data-theme="light"]) .theme-icon-moon {
+    display: none;
+  }
+}
+
+:root[data-theme="dark"] .theme-icon-sun {
+  display: block;
+}
+
+:root[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+
+/* Utility display classes must not override the hidden attribute. */
+[hidden] {
+  display: none !important;
+}
+
+@layer base {
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    @apply font-sans antialiased;
+    background-color: var(--bg);
+    color: var(--fg);
+  }
+
+  /* Pseudo-only selectors get dropped by purge. */
+  /* purgecss start ignore */
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+  /* purgecss end ignore */
+
+  /* Sticky header is 56px; keep anchored sections clear of it. */
+  section[id] {
+    scroll-margin-top: 72px;
+  }
+
+  ::selection {
+    background-color: var(--selected);
+    color: var(--fg);
+  }
+
+  kbd {
+    @apply font-mono;
+    font-size: 12px;
+    line-height: 1.4;
+    padding: 2px 6px;
+    border: 1px solid var(--divider);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    background-color: var(--surface);
+    color: var(--fg);
+  }
+}
+
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 10px 18px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.25;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease;
+  }
+
+  .btn-primary {
+    background-color: var(--accent);
+    color: var(--on-accent);
+  }
+  .btn-primary:hover {
+    background-color: var(--accent-hover);
+  }
+
+  .btn-secondary {
+    background-color: var(--surface);
+    color: var(--fg);
+    border-color: var(--divider);
+  }
+  .btn-secondary:hover {
+    background-color: var(--surface-hover);
+  }
+
+  .skip-link {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .skip-link:focus {
+    position: fixed;
+    top: 8px;
+    left: 8px;
+    z-index: 100;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    padding: 8px 16px;
+    background-color: var(--surface);
+    color: var(--fg);
+    border: 1px solid var(--divider);
+    border-radius: 6px;
+  }
+
+  .card {
+    background-color: var(--surface);
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    padding: 24px;
+  }
+
+  .link {
+    color: var(--accent);
+    text-underline-offset: 2px;
+  }
+  .link:hover {
+    text-decoration: underline;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn {
+      transition: none;
+    }
+  }
+}

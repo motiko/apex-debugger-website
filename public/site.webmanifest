@@ -1,6 +1,8 @@
 {
   "name": "Apex Debugger",
   "short_name": "Apex Debugger",
+  "description": "Debug Salesforce Apex logs with ease",
+  "start_url": "/",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,8 +15,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "rgba(129, 140, 248)",
-  "background_color": "rgba(55, 65, 81)",
-  "display": "standalone"
+  "theme_color": "#00756a",
+  "background_color": "#f6f7f9",
+  "display": "browser"
 }
-
