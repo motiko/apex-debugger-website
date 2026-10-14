@@ -8,9 +8,11 @@ updates:
     schedule:
       interval: monthly
     open-pull-requests-limit: 2
-    # Tailwind v2 -> v3/v4 needs a manual migration of the config and markup.
+    # Tailwind majors need a manual migration of styles.css and the markup.
     ignore:
       - dependency-name: tailwindcss
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@tailwindcss/*"
         update-types: ["version-update:semver-major"]
     groups:
       security:

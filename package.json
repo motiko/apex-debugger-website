@@ -1,20 +1,18 @@
 {
   "scripts": {
-    "build": "NODE_ENV=production postcss styles.css -o public/compiled.css",
+    "build": "tailwindcss -i styles.css -o public/compiled.css --minify",
     "serve": "serve public -p 3000",
-    "compile:css": "postcss styles.css --watch -o public/compiled.css ",
+    "compile:css": "tailwindcss -i styles.css -o public/compiled.css --watch=always",
     "dev": "run-p serve compile:css"
   },
   "devDependencies": {
-    "autoprefixer": "^10.6.1",
+    "@tailwindcss/cli": "^4.3.3",
     "npm-run-all": "^4.1.5",
-    "postcss": "^8.3.0",
-    "postcss-cli": "^12.0.0",
     "serve": "^14.2.4",
-    "tailwindcss": "^2.1.2"
+    "tailwindcss": "^4.3.3"
   },
   "overrides": {
     "compression": "^1.8.2",
-    "postcss-selector-parser": "^7.1.6"
+    "@parcel/watcher": "^2.6.0"
   }
 }
